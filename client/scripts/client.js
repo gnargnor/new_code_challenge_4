@@ -46,12 +46,14 @@ function submitListing(){
 }
 
 function selectType(){
+  console.log('select type hit');
   $(".selectType").removeClass("highlight");
   $(this).addClass("highlight");
   createdListing.type = $(this).data("type");
 }
 
 function appendListings(array){
+  console.log('append listingS hit');
   $("#listingContainer").empty();
   for(var i = array.length - 1; i >= 0; i--){
     $("#listingContainer").append("<div class='row listing'></div>");
@@ -79,7 +81,8 @@ function getListings(){
     type: "GET",
     url: "/listings",
     success: function(response){
-      console.log(response);
+      console.log('got listings', response);
+      appendListings(response);
     }
   });
 }

@@ -17,22 +17,24 @@ var HouseSchema = mongoose.Schema({
 });
 
 var Listings = mongoose.model("listings", ListingSchema, "listings");
-var Apartments = mongoose.model("listings", ApartmentSchema, "listings");
-var Houses = mongoose.model("listings", HouseSchema, "listings");
+var Apartments = mongoose.model("apartments", ApartmentSchema, "listings");
+var Houses = mongoose.model("houses", HouseSchema, "listings");
 
 router.get("/", function(req,res){
-  Listings.find({}, function(err, listings){
+  console.log('get route hit');
+  Listings.find(function(err, listings){
     if(err){
       console.log("Mongo Error: ", err);
       res.send(500);
     }
-
+    console.log('sending listings');
     res.send(listings);
   });
 });
 
 router.post("/house", function(req,res){
   var listing = req.body;
+  console.log(listing);
   var newHouse = new Houses({
     city : listing.city,
     sqft : listing.sqft,
@@ -51,6 +53,7 @@ router.post("/house", function(req,res){
 
 router.post("/apartment", function(req,res){
   var listing = req.body;
+  console.log(listing);
   var newApartment = new Apartments({
     city : listing.city,
     sqft : listing.sqft,
